@@ -2,6 +2,22 @@ const { Event } = require("../models/event");
 const { Participant } = require("../models/participant");
 const { ctrlWrapper } = require("../helpers");
 
+const getEventParticipants = async (req, res) => {
+  const eventId = req.params.id;
+
+  const event = await Event.findById(eventId).populate("participants");
+
+  if (!event) {
+    return res.status(404).json({ message: "Event not found" });
+  }
+
+  if (!event.participants) {
+    return res.status(404).json({ message: "Participants not found" });
+  }
+
+  res.json(event.participants);
+};
+
 const addParticipant = async (req, res) => {
   const eventId = req.params.id;
   const { fullName, email, dateOfBirth, source } = req.body;
@@ -12,7 +28,7 @@ const addParticipant = async (req, res) => {
     return res.status(404).json({ message: "Event not found" });
   }
 
-  const existingParticipant = event.participants.find(
+  const existingParticipant = event.participants?.find(
     (participant) => participant.email === email
   );
 
@@ -43,4 +59,7 @@ const addParticipant = async (req, res) => {
   res.json(updatedEvent);
 };
 
-module.exports = { addParticipant: ctrlWrapper(addParticipant) };
+module.exports = {
+  getEventParticipants: ctrlWrapper(getEventParticipants),
+  addParticipant: ctrlWrapper(addParticipant),
+};

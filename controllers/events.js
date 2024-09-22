@@ -8,23 +8,23 @@ const getAll = async (req, res) => {
   const result = await Event.find({}, "-createdAt -updatedAt", {
     skip,
     limit,
-  }).populate("participant");
+  }).populate("participants");
   res.json(result);
 };
 
-const getEventParticipants = async (req, res) => {
-  const eventId = req.params.id;
+// const getEventParticipants = async (req, res) => {
+//   const eventId = req.params.id;
 
-  const event = await Event.findById(eventId).populate("participants");
+//   const event = await Event.findById(eventId).populate("participants");
 
-  if (!event) {
-    return res.status(404).json({ message: "Event not found" });
-  }
+//   if (!event) {
+//     return res.status(404).json({ message: "Event not found" });
+//   }
 
-  res.json(event.participants);
-};
+//   res.json(event.participants);
+// };
 
 module.exports = {
   getAll: ctrlWrapper(getAll),
-  getEventParticipants: ctrlWrapper(getEventParticipants),
+  // getEventParticipants: ctrlWrapper(getEventParticipants),
 };

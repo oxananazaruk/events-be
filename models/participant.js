@@ -3,7 +3,7 @@ const { handleMongooseErr } = require("../helpers");
 const Joi = require("joi");
 
 const emailRegex = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
-const dataRegexp = /^\d{2}-\d{2}-\d{4}$/;
+const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(19|20)\d{2}$/;
 const sourceList = ["social media", "friends", "found myself"];
 
 const participantSchema = new Schema(
@@ -18,7 +18,7 @@ const participantSchema = new Schema(
       unique: true,
       required: true,
     },
-    dateOfBirth: { type: String, match: dataRegexp, rquired: true },
+    dateOfBirth: { type: String, mach: dateRegex, rquired: true },
     source: {
       type: String,
       enum: sourceList,

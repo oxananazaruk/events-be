@@ -9,11 +9,12 @@ const eventSchema = new Schema(
     description: { type: String, required: true },
     eventDate: { type: String, match: dataRegexp, rquired: true },
     organizer: { type: String, required: true },
-    participants: {
-      type: Schema.Types.ObjectId,
-      ref: "participant",
-      required: true,
-    },
+    participants: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "participant",
+      },
+    ],
   },
   { versionKey: false, timestamps: false }
 );

@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const { addParticipant } = require("../../controllers/participants");
+const ctrl = require("../../controllers/participants");
 
-router.post("/events/:id/participants", addParticipant);
+router.get("/:id", ctrl.getEventParticipants);
+router.post("/:id", ctrl.addParticipant);
 
 module.exports = router;
