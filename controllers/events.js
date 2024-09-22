@@ -3,7 +3,7 @@ const { ctrlWrapper } = require("../helpers");
 
 const getAll = async (req, res) => {
   console.log(req.query);
-  const { page = 1, limit = 6 } = req.query;
+  const { page = 1, limit = 9 } = req.query;
   const skip = (page - 1) * limit;
   const result = await Event.find({}, "-createdAt -updatedAt", {
     skip,
